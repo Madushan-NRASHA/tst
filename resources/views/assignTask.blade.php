@@ -205,7 +205,7 @@
             <div class="row">
                 <div class="col-6">
             <label for="priority" class="form-label">Time Range</label>
-                    <select id="priority" name="priority" class="form-select" required>
+                    <select id="priority" name="time-range" class="form-select" required>
                         <option value="">Time Range</option>
                         <option value="Day">Day</option>
                         <option value="Week">Week</option>
