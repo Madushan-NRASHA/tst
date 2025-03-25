@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Time Task Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4"  id="one-time-task-form" style="display: none;">
+        <h5>One Time Task Form</h5>
+        
+        <!-- First Row: Department & User -->
+        <div class="row">
+            <div class="col-md-6">
+                <label for="department" class="form-label">Select Department</label>
+                <select id="department" name="department" class="form-select">
+                    <option value="">-- Select a Department --</option>
+                    <!-- @foreach($department as $dep) -->
+                    <!-- <option value="{{ $dep->id }}">{{ $dep->get_Department }}</option> -->
+                    <!-- @endforeach -->
+                </select>
+            </div>     
+            <div class="col-md-6">
+                <label for="users" class="form-label">Select User</label>
+                <select id="users" name="user" class="form-select" disabled>
+                    <option value="">-- Select a User --</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Second Row: Task Name & Task Details -->
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="task_name" class="form-label">Task Name</label>
+                <input type="text" name="task_name" id="task_name" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="task_details" class="form-label">Priotity</label>
+                <input type="text" name="task_details" id="task_details" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                  <label for="task_details" class="form-label">Start Date</label>
+                <input type="date" name="" id=""  class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="task_details" class="form-label">End Date</label>
+                <input type="date" name="" id=""  class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="task-name" class="form-label"  style="position: relative; left: 10px;">Job Description</label>
+
+                <textarea id="task-name" name="task_name" class="form-control" rows="4" placeholder="Enter task details" required></textarea>
+            </div>
+            <div class="col-6">
+                <label for="allocated-by" class="form-label" style="position: relative; left: 10px;">Allocated By</label>
+                <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="" placeholder="Enter allocator's name" required disabled>
+            </div>
+        </div>
+        <div class="row" style="width: 700px;">
+            <div class="col-6">
+                <label for="start-time" class="form-label fw-bold" >Start Time:</label>
+                <div class="d-flex">
+                    <input type="number" id="start-hour" name="start-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
+                    <input type="number" id="start-minute" name="start-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
+                    <select id="start-period" name="start-period" class="form-select w-auto" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <label for="end-time" class="form-label fw-bold" >End Time:</label>
+                <div class="d-flex" >
+                    <input type="number" id="end-hour" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
+                    <input type="number" id="end-minute" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
+                    <select id="end-period" name="end-period" class="form-select w-auto" required>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+               
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <p class="fw-bold mb-0 me-2">Duration Hour:</p>
+                    <input type="number" id="duration-hour" value="hh" name="getHour" readonly class="form-control w-25" placeholder="hours">
+                </div>
+                <div class="col-8">
+                <label class="fw-bold mb-0 me-2">Enter Hour</label>
+                <input type="number" ame="enter_hour" id="enter-hour" class="form-control" placeholder="Enter Hour">
+                </div>
+            </div>
+            
+            <div class="row" style="padding-top: 13px;">
+               <div class="col-3">
+                <button class="btn btn-success">Submit</button>
+            </div>
+            <div class="col-3" style="margin-left: -40px;" >
+                <button class="btn btn-danger">Cancel</button></div>
+            </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
