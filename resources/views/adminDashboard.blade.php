@@ -231,6 +231,12 @@
 
 <div class="container">
     <h1>Task Management</h1>
+
+    @if(session('error'))
+        <div class="alert alert-danger" style="text-align: center">
+            {{ session('error') }}
+        </div>
+    @endif
    
 
 
@@ -242,7 +248,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Post Table</h3>
+                        <h3 class="card-title">Task Table</h3>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -260,8 +266,8 @@
                                     <tr>
                                         <td>{{ $todayTask->user->name ?? 'N/A' }}</td>
                                         <td>{{ $todayTask->task_name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($todayTask->start_date)->format('Y-m-d H:i') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($todayTask->end_date)->format('Y-m-d H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($todayTask->start_date)->format('Y-m-d') }} {{ \Carbon\Carbon::parse($todayTask->start_time)->format('H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($todayTask->end_date)->format('Y-m-d') }} {{ \Carbon\Carbon::parse($todayTask->end_time)->format('H:i') }}</td>
                                         <td>
                                             @if($todayTask->status === 'Done')
                                                 <button class="btn btn-success" disabled>
@@ -329,10 +335,10 @@
     </div>
 
     <!-- Task Filter Form -->
-    <form method="GET" action="{{ route('filter.tasks') }}" class="filter-form">
+    <form action="{{ route('filter.tasks') }}" class="filter-form" method="GET">
         <input type="text" name="user_name" placeholder="Filter by User Name">
-        <input type="date" name="start_date">
-        <input type="date" name="end_date">
+        {{-- <input type="date" name="start_date">
+        <input type="date" name="end_date"> --}}
         <select name="status">
             <option value="">All</option>
             <option value="pending">Pending</option>

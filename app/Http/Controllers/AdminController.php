@@ -588,9 +588,9 @@ public function UpdateTask(Request $request, $id)
         $endTime = $request->input('endtime');     // e.g., "05:45 PM"
         
         // Assign values to task object
-        $task->user_id = $request->input('userid');
-        $task->start_date = $request->input('startdate'); // Matches JS hidden input name
-        $task->end_date = $request->input('enddate');
+        $task->user_id = $request->input('user_id');
+        $task->start_date = $request->input('start_date'); // Matches JS hidden input name
+        $task->end_date = $request->input('end_date');
         $task->start_time = $startTime;
         $task->end_time = $endTime;
         $task->Duration_time = $request->input('duration');
