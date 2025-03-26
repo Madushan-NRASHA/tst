@@ -110,7 +110,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Post Table</h3>
+                                <h3 class="card-title">User Table</h3>
                             </div>
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
@@ -245,24 +245,24 @@
         </div>
 
         <div class="d-flex gap-2 mt-3">
-    <form action="/Coodinatortask/${task.id}/update-status" method="POST" class="me-2">
-        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="status" value="Done">
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fas fa-check me-1"></i> Approve
-                                        </button>
-                                    </form>
+            <form action="/Coodinatortask/${task.id}/update-status" method="POST" class="me-2">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="status" value="Done">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="fas fa-check me-1"></i> Approve
+                </button>
+            </form>
 
-                                    <form action="/Coodinatortask/${task.id}/update-status" method="POST">
-        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="status" value="pending">
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-times me-1"></i> Reject
-                                        </button>
-                                    </form>
-                                </div>
+            <form action="/Coodinatortask/${task.id}/update-status" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="status" value="pending">
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fas fa-times me-1"></i> Reject
+                </button>
+            </form>
+        </div>
 
                                                             </div>
 `;
