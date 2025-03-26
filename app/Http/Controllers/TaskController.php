@@ -200,7 +200,7 @@ public function filterTasks(Request $request)
         $user = User::where('name', $request->user_name)->first();
 
         if (!$user) {
-            ;
+            return redirect()->back()->with('error', 'User not found.');
         }
 
         $id = $user->id;

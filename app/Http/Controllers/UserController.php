@@ -192,6 +192,7 @@ public function userUpdate(Request $request,$id){
 }
 public function userEditFunc(Request $request, $id)
 {
+    // return $request;
     // Validate the input
     $validated = $request->validate([
         'name' => 'required|string|max:255',
@@ -207,10 +208,10 @@ public function userEditFunc(Request $request, $id)
 
     // Update the user fields
     $user->name = $validated['name'];
-    $user->email = $validated['email'];
-    $user->department_id = $validated['department'];
-    $user->Emp_id = $validated['Emp_id'];
-    $user->userType = $validated['getRole'];
+    // $user->email = $request->email;
+    // $user->department_id = $request->department;
+    // $user->Emp_id = $validated['Emp_id'];
+    // $user->userType = $validated['getRole'];
 
     // If a new password is provided, hash and update it
     if (!empty($validated['password'])) {

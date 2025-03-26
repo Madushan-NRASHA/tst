@@ -10,10 +10,9 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <div class="col-sm-12">
-                                            <h1 class="text-primary font-weight-bold text-center text-md-left">View User Status</h1>
-                                        </div>
+                            <h1 class="text-primary font-weight-bold text-md-left">User Details</h1>
+                        </div>
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="{{ route('admin.viewUser') }}">User Details</a></li>
                             <li class="breadcrumb-item active">View</li>
                         </ol>
@@ -68,7 +67,7 @@
                                     <div class="row">
                                         <div class="col-6 mb-3">
                                             <label for="company-name" class="fw-bold">Company Name</label>
-                                            <input type="text" id="company-name" name="task_site" class="form-control">
+                                            <input type="text" id="company-name" name="task_site" class="form-control" required>
                                         </div>
                                         <div class="col-6 mb-3">
                                             <label for="priority" class="fw-bold">Priority</label>
@@ -86,7 +85,7 @@
                                     <div class="row">
                                         <div class="col-6 mb-3">
                                             <label for="start-date" class="fw-bold">Start Date</label>
-                                            <input type="date" id="start-date" name="start_date" class="form-control">
+                                            <input type="date" id="start-date" name="start_date" class="form-control" required>
                                         </div>
                                         <div class="col-6 mb-3">
                                             <label for="end-date" class="fw-bold">End Date</label>
@@ -96,11 +95,11 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <label for="job-description" class="fw-bold">Job Description</label>
-                                            <textarea id="job-description" name="task_name" class="form-control" rows="3"></textarea>
+                                            <textarea id="job-description" name="task_name" class="form-control" rows="3" required></textarea>
                                         </div>
                                         <div class="col-6">
                                             <label for="allocated-by" class="fw-bold">Allocated By</label>
-                                            <input type="text" id="allocated-by" name="allocated_by" value="{{ Auth::user()->name }}" class="form-control">
+                                            <input type="text" id="allocated-by" name="allocated_by" value="{{ Auth::user()->name }}" class="form-control" readonly required>
                                         </div>
                                     </div>
                                     <div class="row mb-4">
@@ -118,28 +117,27 @@
                                         <div class="col-6">
                                             <label class="fw-bold">End Time:</label>
                                             <div class="d-flex">
-                                               <input type="number" id="end-hour" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
-                                            <input type="number" id="end-minute" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
-                                            <select id="end-period" name="end-period" class="form-select w-auto" required>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
+                                                <input type="number" id="end-hour" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2">
+                                                <input type="number" id="end-minute" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2">
+                                                <select id="end-period" name="end-period" class="form-select w-auto">
+                                                    <option value="AM">AM</option>
+                                                    <option value="PM">PM</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mb-3" style="display: flex; align-items: center;">
-    
-    <div class="col-6" style="display: flex; flex-direction: column; margin-left: 10px;">
-        <label style="font-weight: bold;">Alocation Hour</label>
-        <input type="number" name="enter_hour" id="enter-hour" placeholder="Enter Hour"
-            style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; outline: none;">
-    </div>
-    <div class="col-4" style="display: flex; flex-direction: column;">
-        <label class="fw-bold">Duration:</label>
-        <input type="number" id="duration-hour" name="getHour" readonly class="form-control" placeholder="hours"
-            style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; outline: none;">
-    </div>
-</div>
+                                    <div class="row mb-3" style="display: flex; align-items: center;">    
+                                        <div class="col-6" style="display: flex; flex-direction: column; margin-left: 10px;">
+                                            <label style="font-weight: bold;">Alocation Hour</label>
+                                            <input type="number" name="enter_hour" id="enter-hour" placeholder="Enter Hour"
+                                                style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; outline: none;" required>
+                                        </div>
+                                        <div class="col-4" style="display: flex; flex-direction: column;">
+                                            <label class="fw-bold">Duration:</label>
+                                            <input type="number" id="duration-hour" name="getHour" readonly class="form-control" placeholder="hours"
+                                                style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px; outline: none;" required>
+                                        </div>
+                                    </div>
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-success me-2">Save Task</button>
@@ -152,7 +150,7 @@
                             <h4 class="text-dark font-weight-bold mt-4">Recent Activities</h4>
                             <section class="content">
    
-                        <h3 class="card-title">Post Table</h3>
+                        <h3 class="card-title">Task Table</h3>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
