@@ -116,8 +116,14 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <h1>Task Management</h1>
+
+                    @if(session('error'))
+                        <div class="alert alert-danger" style="text-align: center">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -129,7 +135,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Post Table</h3>
+                        <h3 class="card-title">Task Table</h3>
                     </div>
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
@@ -147,8 +153,8 @@
                                     <tr>
                                         <td>{{ $todayTask->user->name ?? 'N/A' }}</td>
                                         <td>{{ $todayTask->task_name }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($todayTask->start_date)->format('Y-m-d H:i') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($todayTask->end_date)->format('Y-m-d H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($todayTask->start_date)->format('Y-m-d') }} {{ \Carbon\Carbon::parse($todayTask->start_time)->format('H:i') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($todayTask->end_date)->format('Y-m-d') }} {{ \Carbon\Carbon::parse($todayTask->end_time)->format('H:i') }}</td>
                                         <td>
                                             @if($todayTask->status === 'Done')
                                                 <button class="btn btn-success" disabled>
@@ -197,6 +203,7 @@
 </div>
     <!-- Main content -->
     <div class="container-fluid">
+        
         <!-- Current Date Display -->
         <div class="alert alert-info">
             Current Date: {{ $now->format('Y-m-d H:i:s') }}
@@ -237,19 +244,19 @@
         <!-- Filter Form -->
         <div class="card mb-4">
             <div class="card-body">
-                <form method="GET" action="{{ route('coordinator.filter.tasks') }}" class="row g-3">
+                <form action="{{ route('coordinator.filter.tasks') }}" class="row g-3" method="GET">
                     <div class="col-md-3">
                         <input type="text" name="user_name" class="form-control" placeholder="Filter by User Name">
                     </div>
-                    <div class="col-md-2">
+                    {{-- <div class="col-md-2">
                         <input type="date" name="start_date" class="form-control">
                     </div>
                     <div class="col-md-2">
                         <input type="date" name="end_date" class="form-control">
-                    </div>
+                    </div> --}}
                     <div class="col-md-3">
                         <select name="status" class="form-control">
-                            <option value="">All Status</option>
+                            <option value="">All</option>
                             <option value="pending">Pending</option>
                             <option value="ongoing">Ongoing</option>
                             <option value="done">Done</option>

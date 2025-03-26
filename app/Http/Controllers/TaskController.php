@@ -296,59 +296,68 @@ public function filterTasks(Request $request)
     }
     public function filterCoordinatorTasks(Request $request)
     {
+        // return $request;
         $now = Carbon::now()->setTimezone('Asia/Colombo');
         $today = Carbon::today()->setTimezone('Asia/Colombo');
 
-        // Get departments
+        // Get departments (needed for all views)
         $departments = Department::with('users')->get();
 
-        // Base query
+        // Initialize ID as null
+        $id = null;
+
+        // Handle user_name filter
+        if ($request->filled('user_name')) {
+            $user = User::where('name', $request->user_name)->first();
+
+            if (!$user) {
+                return redirect()->back()->with('error', 'User not found.');
+            }
+
+            $id = $user->id;
+        }
+
+        // Base task query
         $query = Task::query();
 
-        if ($request->filled('user_name')) {
-            $query->whereHas('user', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->user_name . '%');
-            });
+        // Filter by user_id if user found
+        if ($id !== null) {
+            $query->where('user_id', $id);
         }
 
-        if ($request->filled('start_date')) {
-            $query->whereDate('start_date', '>=', $request->start_date);
-        }
-
-        if ($request->filled('end_date')) {
-            $query->whereDate('end_date', '<=', $request->end_date);
-        }
-
+        // Filter by status if provided and not empty
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
-        // Get filtered tasks
-        $expiredTasks = $query->clone()
-            ->where('status', 'pending')
-            ->whereDate('end_date', '<', $today)
-            ->get();
-
+        // Get today's tasks
         $todayTasks = $query->clone()
-            ->where('status', 'pending')
-            ->whereDate('start_date', '<=', $today)
-            ->whereDate('end_date', '>=', $today)
+            ->whereDate('created_at', '=', $today)
+            ->orderBy('created_at', 'desc')
             ->get();
 
+        // Get pending (overdue) tasks
         $pendingTasks = $query->clone()
             ->where('status', 'pending')
             ->whereDate('end_date', '<', $today)
             ->orderBy('end_date', 'asc')
             ->get();
 
+        // Get completed tasks
         $completedTasks = $query->clone()
             ->where('status', 'done')
             ->orderBy('updated_at', 'desc')
             ->get();
 
+        // Get paginated result for table
+        $todayAllTasks = $query->clone()
+            ->orderBy('end_date', 'desc')
+            ->paginate(10)
+            ->appends($request->query());
+
         return view('coodinatorDashboard', compact(
             'departments',
-            'expiredTasks',
+            'todayAllTasks',
             'todayTasks',
             'pendingTasks',
             'completedTasks',
