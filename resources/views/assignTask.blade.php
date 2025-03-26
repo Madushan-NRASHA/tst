@@ -155,7 +155,7 @@
                 </div>
             </form>
         </div> 
-
+        <label for="normal-task" style="position:relative; left:80px;top:20px;font-size:30px">Normal Task</label>
         <div class="container mt-5">
             <form id="filter-form" class="mb-4">
                 @csrf
@@ -188,101 +188,96 @@
                             <i class="fas fa-tasks"></i> Add Task
                         </button>
                         <div id="task-form-container" style="display: none; margin-bottom: 20px;">
-                            <form id="main-task-form" method="post" action="{{ route('task.store') }}" >
-                                @csrf
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="task-site" class="form-label" style="position: relative; left: -400px;">Company Name</label>
-                                        <input type="text" id="task-site" name="task_site" class="form-control"  placeholder="Enter task site" >
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="priority" class="form-label" style="position: relative; left: -455px;">Priority</label>
-                                        <select id="priority" name="priority" class="form-select" required>
-                                            <option value="">Select priority</option>
-                                            <option value="low">Low</option>
-                                            <option value="medium">Medium</option>
-                                            <option value="high">High</option>
-                                        </select>
-                                    </div>
-                                </div>
+    <form id="main-task-form" method="post" action="{{ route('task.store') }}">
+        @csrf
+        <div class="row">
+            <div class="col-6">
+                <label for="task-site" class="form-label" style="position: relative; left: -400px;">Company Name</label>
+                <input type="text" id="task-site" name="task_site" class="form-control" placeholder="Enter task site">
+            </div>
+            <div class="col-6">
+                <label for="priority" class="form-label" style="position: relative; left: -455px;">Priority</label>
+                <select id="priority" name="priority" class="form-select">
+                    <option value="">Select priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+        </div>
 
-                                <div class="row">
-                                    <!-- Start Date -->
-                                    <div class="col-6">
-                                        <label for="start-date-main" class="form-label">Start Date</label>
-                                        <input type="date" id="start-date-main" name="start_date" class="form-control" required>
-                                    </div>
-                                    <!-- End Date -->
-                                        <div class="col-6">
-                                            <label for="end-date-main" class="form-label">End Date</label>
-                                            <input type="date" id="end-date-main" name="end_date" class="form-control" required readonly>
-                                        </div>
-                                    </div>
-                                <div class="mb-3">
-                                    <input type="number" id="user-id1" name="user_id" hidden class="form-control" value="" required>
-                                </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="start-date-main" class="form-label">Start Date</label>
+                <input type="date" id="start-date-main" name="start_date" class="form-control">
+            </div>
+            <div class="col-6">
+                <label for="end-date-main" class="form-label">End Date</label>
+                <input type="date" id="end-date-main" name="end_date" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input type="number" id="user-id1" name="user_id" hidden class="form-control" value="">
+        </div>
 
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="task-name" class="form-label"  style="position: relative; left: -400px;">Job Description</label>
-                                        <textarea id="task-name" name="task_name" class="form-control" rows="4" placeholder="Enter task details" required></textarea>
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="allocated-by" class="form-label" style="position: relative; left: -425px;">Allocated By</label>
-                                        <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
-                                    </div>
-                                </div>
+        <div class="row">
+            <div class="col-6">
+                <label for="task-name" class="form-label" style="position: relative; left: -400px;">Job Description</label>
+                <textarea id="task-name" name="task_name" class="form-control" rows="4" placeholder="Enter task details"></textarea>
+            </div>
+            <div class="col-6">
+                <label for="allocated-by" class="form-label" style="position: relative; left: -425px;">Allocated By</label>
+                <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" disabled>
+            </div>
+        </div>
 
-                                <!-- Added attributes to make time inputs more user-friendly -->
-                                <div class="row" style="width: 700px;">
-                                <div class="col-6">
-                                    <label for="start-time" class="form-label fw-bold">Start Time:</label>
-                                        <div class="d-flex">
-                                            <input type="number" id="start-hour-main" name="start-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
-                                            <input type="number" id="start-minute-main" name="start-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
-                                            <select id="start-period" name="start-period-main" class="form-select w-auto" required>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
-                                        </div>
-                                    </div>
+        <div class="row" style="width: 700px;">
+            <div class="col-6">
+                <label for="start-time" class="form-label fw-bold">Start Time:</label>
+                <div class="d-flex">
+                    <input type="number" id="start-hour-main" name="start-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2">
+                    <input type="number" id="start-minute-main" name="start-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2">
+                    <select id="start-period" name="start-period-main" class="form-select w-auto">
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            </div>
 
-                                    <div class="col-6">
-                                        <label for="end-time" class="form-label fw-bold">End Time:</label>
-                                        <div class="d-flex">
-                                            <input type="number" id="end-hour-main" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required readonly>
-                                            <input type="number" id="end-minute-main" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required readonly>
-                                            <select id="end-period" name="end-period-main" class="form-select w-auto" required disabled>
-                                                <option value="AM">AM</option>
-                                                <option value="PM">PM</option>
-                                            </select>
-                                        </div>
-                                    </div>
+            <div class="col-6">
+                <label for="end-time" class="form-label fw-bold">End Time:</label>
+                <div class="d-flex">
+                    <input type="number" id="end-hour-main" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" readonly>
+                    <input type="number" id="end-minute-main" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" readonly>
+                    <select id="end-period" name="end-period-main" class="form-select w-auto" disabled>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            </div>
 
-                                    <div class="col-6">
-                                        <label for="enter-hour-main" class="form-label">Enter Hour</label>
-                                        <input type="number" name="enter_hour" id="enter-hour-main" placeholder="Enter Hour" class="form-control" required>
-                                     </div>
-                                </div>
+            <div class="col-6">
+                <label for="enter-hour-main" class="form-label">Enter Hour</label>
+                <input type="number" name="enter_hour" id="enter-hour-main" placeholder="Enter Hour" class="form-control">
+            </div>
+        </div>
 
-                                <div class="row" style="position:relative;top: 50px; left:-430px">
-                                <div class="col-6 d-flex align-items-center">
-                                    <label class="fw-bold me-2">Duration Hour:</label>
-                                    <input type="number" id="duration-hour-main" name="getHour" class="form-control w-25" placeholder="hours" readonly>
-                                </div>
-                                </div>                              
+        <div class="row" style="position:relative;top: 50px; left:-430px">
+            <div class="col-6 d-flex align-items-center">
+                <label class="fw-bold me-2">Duration Hour:</label>
+                <input type="number" id="duration-hour-main" name="getHour" class="form-control w-25" placeholder="hours" readonly>
+            </div>
+        </div>
 
-                                <div id="time-output" style="margin-top: 16px; font-weight: bold; color: #333;"></div>
+        <div id="time-output" style="margin-top: 16px; font-weight: bold; color: #333;"></div>
 
-                                <br>
-                                <br>
-                                <br>
+        <br><br><br>
 
-                                <button type="submit"  id="submit-time" class="btn btn-success">Save Task</button>
-                                <button type="button" class="btn btn-danger" id="main-task-cancel">Cancel</button>
+        <button type="submit" id="submit-time" class="btn btn-success">Save Task</button>
+        <button type="button" class="btn btn-danger" id="main-task-cancel">Cancel</button>
+    </form>
+</div>
 
-                            </form>
-                        </div>
 
                     </div>
 
@@ -398,7 +393,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-<script>
+<!-- <script>
         $(document).ready(function () {
     // Handle department change
     $('#department').on('change', function () {
@@ -468,6 +463,132 @@ document.addEventListener("DOMContentLoaded", function () {
                                         ${task.status || 'Not specified'}
                                     </span>
                                     <span><p>Start Date: ${task.start_date}</p><p>End Date: ${task.end_date}</p></span>
+                                </div>
+                                <hr style="border-top: 1px solid #ddd; margin-top: 15px;">
+                            `;
+                        });
+                        $('#user-tasks').html(tasksHtml).show();
+                    } else {
+                        $('#user-tasks').html('<p>No tasks found for this user.</p>').show();
+                    }
+
+                    $('#user-details-card').show();
+                } else {
+                    console.warn("No user found:", response.message);
+                    $('#user-details-card').hide();
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching user details:", xhr.responseText);
+                $('#user-details-card').hide();
+            }
+        });
+    });
+
+    // Handle form submission
+    $('form').on('submit', function (e) {
+        const userId = $('#user-id').val();
+        if (!userId) {
+            e.preventDefault();
+            alert("Please select a user before submitting the form.");
+        }
+    });
+});
+</script> -->
+<script>$(document).ready(function () {
+    // Handle department change
+    $('#department').on('change', function () {
+        const departmentId = $(this).val();
+
+        // Reset user selection and details
+        $('#users').prop('disabled', true).html('<option value="">-- Select a User --</option>');
+        $('#user-details-card').hide();
+        $('#user-error').hide();
+
+        if (!departmentId) return;
+
+        $.ajax({
+            url: "{{ route('users.by.department') }}",
+            type: "GET",
+            data: { department_id: departmentId },
+            success: function (response) {
+                const usersDropdown = $('#users');
+                usersDropdown.prop('disabled', false).html('<option value="">-- Select a User --</option>');
+
+                if (response.users && response.users.length > 0) {
+                    response.users.forEach(user => {
+                        usersDropdown.append(`<option value="${user.id}">${user.name}</option>`);
+                    });
+                } else {
+                    $('#user-error').show();
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching users:", xhr.responseText);
+            }
+        });
+    });
+
+    // Handle user selection
+    $('#users').on('change', function () {
+        const userId = $(this).val();
+
+        if (!userId) {
+            $('#user-details-card').hide();
+            return;
+        }
+
+        // ✅ Set the selected user's ID to the hidden input field inside the form
+        $('#user-id').val(userId);
+
+        $.ajax({
+            url: "{{ route('user.details') }}",
+            type: "GET",
+            data: { user_id: userId },
+            success: function (response) {
+                if (response.success) {
+                    const user = response.user;
+
+                    $('#user-name').text(user.name);
+                    $('#user-department').text(user.department ? user.department.get_Department : 'No department assigned');
+
+                    // Display tasks
+                    if (response.tasks && response.tasks.length > 0) {
+                        let tasksHtml = '';
+                        response.tasks.forEach(task => {
+                            tasksHtml += `
+                                <div class="task-item" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                                    <strong style="font-size: 1.2rem; color: #333;">Task: ${task.task_name}</strong><br>
+                                    Status:
+                                    <span class="badge ${task.status === 'Completed' ? 'bg-success' : task.status === 'In Progress' ? 'bg-warning' : 'bg-secondary'}" style="font-size: 0.9rem;">
+                                        ${task.status || 'Not specified'}
+                                    </span>
+                                    <span><p>Start Date: ${task.start_date}</p><p>End Date: ${task.end_date}</p></span>
+                                    
+                                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                        ${task.Coordinator_status !== 'Done' ? `
+                                            <a href="/admin/taskUpdateView/${task.id}" class="text-warning" style="text-decoration: none;">
+                                                <span class="btn btn-warning" style="display: flex; align-items: center;">
+                                                    <i class="fas fa-edit" style="margin-right: 5px;"></i> Edit
+                                                </span>
+                                            </a>
+
+                                            <a href="/admin/deleteTask/${task.id}" class="text-danger" onclick="confirmDelete(event)" style="text-decoration: none;">
+                                                <span class="btn btn-danger" style="display: flex; align-items: center;">
+                                                    <i class="fas fa-trash" style="margin-right: 5px;"></i> Delete
+                                                </span>
+                                            </a>
+                                            <form action="/user/reason/${task.id}" method="POST" class="d-inline delete-form">
+                                                <input type="hidden" name="_token" value="${document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')}">
+                                                
+                                                <!-- Link to trigger confirmation and reason entry modal -->
+                                                <a href="#" class="text-danger" onclick="event.preventDefault(); confirmDeleteWithReason(this);" style="text-decoration: none;">
+                                                    <span class="btn btn-success" style="display: flex; align-items: center;">
+                                                        <i class="fa-solid fa-paper-plane" style="margin-right: 5px;"></i> Enter Reason
+                                                    </span>
+                                                </a>
+                                            </form>` : ''}
+                                    </div>
                                 </div>
                                 <hr style="border-top: 1px solid #ddd; margin-top: 15px;">
                             `;
