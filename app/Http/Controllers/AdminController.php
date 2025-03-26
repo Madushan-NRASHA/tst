@@ -130,11 +130,11 @@ class AdminController extends Controller
     }
 
     public  function assignTask(){
-//        $users = User::with('department')->get();
+//     
         $department=Department::with('task')->get();
+        $users = User::with('tasks')->get();
 
-
-        return view('assignTask',compact('department'));
+        return view('assignTask',compact('department','users'));
     }
 
     public function userUpdate(Request $request,$id){
