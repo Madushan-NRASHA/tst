@@ -113,7 +113,14 @@
 {{--                </a>--}}
 
 {{--                </li>--}}
+                <li class="nav-item">
+                    <a href="{{ route('selfUpdate', ['id' => auth()->user()->id]) }}" class="nav-link @if(request()->routeIs('selfUpdate')) active @endif">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <p>Profile Settings</p>
+                    </a>
+                </li>
                 <hr>
+            
                 <li> <a class="nav-link" href="{{ route('logout') }}"
 
                         onclick="event.preventDefault();
@@ -124,7 +131,8 @@
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
-                    </form></li>
+                    </form>
+                </li>
 
 
 

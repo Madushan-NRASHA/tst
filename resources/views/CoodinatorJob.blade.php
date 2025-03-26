@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h3>Filter Users by Department</h3>
+                        <h3>Filter Users by Department and Assign Tasks</h3>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label for="task-site" class="form-label" style="position: relative; left: -400px;">Company Name</label>
-                                        <input type="text" id="task-site" name="task_site" class="form-control"  placeholder="Enter task site" >
+                                        <input type="text" id="task-site" name="task_site" class="form-control"  placeholder="Enter task site" required>
                                     </div>
                                     <div class="col-6">
                                         <label for="priority" class="form-label" style="position: relative; left: -455px;">Priority</label>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="col-6">
                                         <label for="end-date" class="form-label" style="position: relative; left: -448px;">End Date</label>
-                                        <input type="date" id="end-date" name="end_date" class="form-control" required>
+                                        <input type="date" id="end-date" name="end_date" class="form-control">
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -104,9 +104,9 @@
                                     <div class="col-6">
                                         <label for="end-time" class="form-label fw-bold" style="position: absolute;left: 10px">End Time:</label>
                                         <div class="d-flex" style="position: absolute; top: 30px">
-                                            <input type="number" id="end-hour" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
-                                            <input type="number" id="end-minute" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
-                                            <select id="end-period" name="end-period" class="form-select w-auto" required>
+                                            <input type="number" id="end-hour" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2">
+                                            <input type="number" id="end-minute" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2">
+                                            <select id="end-period" name="end-period" class="form-select w-auto">
                                                 <option value="AM">AM</option>
                                                 <option value="PM">PM</option>
                                             </select>
@@ -121,7 +121,7 @@
                                    <div class="row" style="position:relative;top: 50px; left:-430px">
                                     <div class="col-8">
                                     <label>Enter Hour</label>
-                                    <input type="number" ame="enter_hour" id="enter-hour"  placeholder="Enter Hour">
+                                    <input type="number" ame="enter_hour" id="enter-hour"  placeholder="Enter Hour" required>
                                     </div>
                                 </div>
                                 

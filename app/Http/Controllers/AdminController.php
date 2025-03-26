@@ -392,7 +392,7 @@ class AdminController extends Controller
         $task->delete();
 
         // Redirect with success message
-        return redirect()->route('admin.assignTask')->with('success', 'Post and associated files deleted successfully');
+        return redirect()->back()->with('success', 'Post and associated files deleted successfully');
     }
 
     public function updateTaskview($id) {
@@ -483,7 +483,7 @@ public function UpdateTask(Request $request, $id)
             'details' => 'Task Name: ' . $task->task_name,
         ]);
 
-        return redirect()->route('admin.viewUser')->with('success', 'Task updated successfully!');
+        return redirect()->route('Coordinator.DashBoard')->with('success', 'Task updated successfully!');
     }
     public function secondTask(Request $request)
     {
