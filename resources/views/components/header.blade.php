@@ -10,7 +10,7 @@
         </li>
         @else
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('adminView.Dashboard') }}" class="nav-link">Homes</a>
+            <a href="{{ route('Coordinator.DashBoard') }}" class="nav-link">Home</a>
         </li>
         @endif
     </ul>

@@ -38,18 +38,62 @@
                     <div class="card-header bg-primary text-white">
                         <h5>User Task Details</h5>
                     </div>
+                    <div class="card-footer text-end">
+                        <button type="button" id="add-main-task" class="btn btn-primary">
+                            <i class="fas fa-tasks"></i> Add Task
+                        </button>
+                     </div>
+                     <!-- Add Task Form -->
+                    <div class="modal-body">
+                        <form id="main-task-form" method="post" action="{{ route('task.store') }}" style="display: none;">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="task-name" class="form-label">Task Name</label>
+                                <input type="text" id="task-name" name="task_name" class="form-control" placeholder="Enter task name" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="start-date" class="form-label">Start Date</label>
+                                    <input type="date" id="start-date" name="start_date" class="form-control" required>
+                                </div>
+                                <div class="col-6">
+                                    <label for="end-date" class="form-label">End Date</label>
+                                    <input type="date" id="end-date" name="end_date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" id="user-id" name="user_id" hidden class="form-control" value="" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="priority" class="form-label">Priority</label>
+                                    <select id="priority" name="priority" class="form-select" required>
+                                        <option value="">Select priority</option>
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="allocation-hour" class="form-label">Allocation Hour</label>
+                                    <input type="number" id="allocation-hour" name="allocation_hour" class="form-control" placeholder="Enter hours" required>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label for="allocated-by" class="form-label">Allocated By</label>
+                                <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-success">Save Task</button>
+                            <button type="button" class="btn btn-danger" id="main-task-cancel">Cancel</button>
+                        </form>
+                    </div>
                     <div class="card-body">
                         <p><strong>Name:</strong> <span id="user-name"></span></p>
                         <p><strong>Department:</strong> <span id="user-department"></span></p>
                         <div id="user-tasks" class="mt-3" style="display: none;">
                             <!-- Tasks will be dynamically loaded here -->
                         </div>
-                    </div>
-
-{{--                    <div class="card-footer text-end">--}}
-{{--                        <button type="button" id="add-main-task" class="btn btn-primary">--}}
-{{--                            <i class="fas fa-tasks"></i> Add Task--}}
-{{--                        </button>--}}
                     </div>
                 </div>
             </div>
@@ -59,51 +103,7 @@
                 <strong>Error:</strong> No users found in this department.
             </div>
 
-            <!-- Add Task Form -->
-            <div class="modal-body">
-                <form id="main-task-form" method="post" action="{{ route('task.store') }}" style="display: none;">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="task-name" class="form-label">Task Name</label>
-                        <input type="text" id="task-name" name="task_name" class="form-control" placeholder="Enter task name" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="start-date" class="form-label">Start Date</label>
-                            <input type="date" id="start-date" name="start_date" class="form-control" required>
-                        </div>
-                        <div class="col-6">
-                            <label for="end-date" class="form-label">End Date</label>
-                            <input type="date" id="end-date" name="end_date" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <input type="number" id="user-id" name="user_id" hidden class="form-control" value="" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="priority" class="form-label">Priority</label>
-                            <select id="priority" name="priority" class="form-select" required>
-                                <option value="">Select priority</option>
-                                <option value="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <label for="allocation-hour" class="form-label">Allocation Hour</label>
-                            <input type="number" id="allocation-hour" name="allocation_hour" class="form-control" placeholder="Enter hours" required>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <label for="allocated-by" class="form-label">Allocated By</label>
-                        <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-success">Save Task</button>
-                    <button type="button" class="btn btn-danger" id="main-task-cancel">Cancel</button>
-                </form>
-            </div>
+            
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
