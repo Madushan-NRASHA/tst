@@ -393,7 +393,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-<script>
+<!-- <script>
         $(document).ready(function () {
     // Handle department change
     $('#department').on('change', function () {
@@ -463,6 +463,132 @@ document.addEventListener("DOMContentLoaded", function () {
                                         ${task.status || 'Not specified'}
                                     </span>
                                     <span><p>Start Date: ${task.start_date}</p><p>End Date: ${task.end_date}</p></span>
+                                </div>
+                                <hr style="border-top: 1px solid #ddd; margin-top: 15px;">
+                            `;
+                        });
+                        $('#user-tasks').html(tasksHtml).show();
+                    } else {
+                        $('#user-tasks').html('<p>No tasks found for this user.</p>').show();
+                    }
+
+                    $('#user-details-card').show();
+                } else {
+                    console.warn("No user found:", response.message);
+                    $('#user-details-card').hide();
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching user details:", xhr.responseText);
+                $('#user-details-card').hide();
+            }
+        });
+    });
+
+    // Handle form submission
+    $('form').on('submit', function (e) {
+        const userId = $('#user-id').val();
+        if (!userId) {
+            e.preventDefault();
+            alert("Please select a user before submitting the form.");
+        }
+    });
+});
+</script> -->
+<script>$(document).ready(function () {
+    // Handle department change
+    $('#department').on('change', function () {
+        const departmentId = $(this).val();
+
+        // Reset user selection and details
+        $('#users').prop('disabled', true).html('<option value="">-- Select a User --</option>');
+        $('#user-details-card').hide();
+        $('#user-error').hide();
+
+        if (!departmentId) return;
+
+        $.ajax({
+            url: "{{ route('users.by.department') }}",
+            type: "GET",
+            data: { department_id: departmentId },
+            success: function (response) {
+                const usersDropdown = $('#users');
+                usersDropdown.prop('disabled', false).html('<option value="">-- Select a User --</option>');
+
+                if (response.users && response.users.length > 0) {
+                    response.users.forEach(user => {
+                        usersDropdown.append(`<option value="${user.id}">${user.name}</option>`);
+                    });
+                } else {
+                    $('#user-error').show();
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching users:", xhr.responseText);
+            }
+        });
+    });
+
+    // Handle user selection
+    $('#users').on('change', function () {
+        const userId = $(this).val();
+
+        if (!userId) {
+            $('#user-details-card').hide();
+            return;
+        }
+
+        // ✅ Set the selected user's ID to the hidden input field inside the form
+        $('#user-id').val(userId);
+
+        $.ajax({
+            url: "{{ route('user.details') }}",
+            type: "GET",
+            data: { user_id: userId },
+            success: function (response) {
+                if (response.success) {
+                    const user = response.user;
+
+                    $('#user-name').text(user.name);
+                    $('#user-department').text(user.department ? user.department.get_Department : 'No department assigned');
+
+                    // Display tasks
+                    if (response.tasks && response.tasks.length > 0) {
+                        let tasksHtml = '';
+                        response.tasks.forEach(task => {
+                            tasksHtml += `
+                                <div class="task-item" style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px;">
+                                    <strong style="font-size: 1.2rem; color: #333;">Task: ${task.task_name}</strong><br>
+                                    Status:
+                                    <span class="badge ${task.status === 'Completed' ? 'bg-success' : task.status === 'In Progress' ? 'bg-warning' : 'bg-secondary'}" style="font-size: 0.9rem;">
+                                        ${task.status || 'Not specified'}
+                                    </span>
+                                    <span><p>Start Date: ${task.start_date}</p><p>End Date: ${task.end_date}</p></span>
+                                    
+                                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                        ${task.Coordinator_status !== 'Done' ? `
+                                            <a href="/admin/taskUpdateView/${task.id}" class="text-warning" style="text-decoration: none;">
+                                                <span class="btn btn-warning" style="display: flex; align-items: center;">
+                                                    <i class="fas fa-edit" style="margin-right: 5px;"></i> Edit
+                                                </span>
+                                            </a>
+
+                                            <a href="/admin/deleteTask/${task.id}" class="text-danger" onclick="confirmDelete(event)" style="text-decoration: none;">
+                                                <span class="btn btn-danger" style="display: flex; align-items: center;">
+                                                    <i class="fas fa-trash" style="margin-right: 5px;"></i> Delete
+                                                </span>
+                                            </a>
+                                            <form action="/user/reason/${task.id}" method="POST" class="d-inline delete-form">
+                                                <input type="hidden" name="_token" value="${document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content')}">
+                                                
+                                                <!-- Link to trigger confirmation and reason entry modal -->
+                                                <a href="#" class="text-danger" onclick="event.preventDefault(); confirmDeleteWithReason(this);" style="text-decoration: none;">
+                                                    <span class="btn btn-success" style="display: flex; align-items: center;">
+                                                        <i class="fa-solid fa-paper-plane" style="margin-right: 5px;"></i> Enter Reason
+                                                    </span>
+                                                </a>
+                                            </form>` : ''}
+                                    </div>
                                 </div>
                                 <hr style="border-top: 1px solid #ddd; margin-top: 15px;">
                             `;
