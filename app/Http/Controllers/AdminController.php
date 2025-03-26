@@ -662,6 +662,7 @@ public function UpdateTask(Request $request, $id)
         }
     }
     public function oneTaskstore(Request $request){
+        return $request;
         // $request->validate([
         //     'department' => 'required|exists:departments,id',  // Ensure the department exists
         //     'user' => 'required|exists:users,id',  // Ensure the user exists
@@ -709,6 +710,8 @@ public function UpdateTask(Request $request, $id)
             'end_time' => $endTime,
             'duration_hour' =>$request->input('getHour'),
             'enter_hour' => $request->enter_hour,
+            'time-range'=>$request->time-range,
+            'general_task_type'=>$request->genearl-task-type,
         ]);
 
         // Redirect back with a success message
