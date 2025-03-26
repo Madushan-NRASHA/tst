@@ -14,156 +14,155 @@
             </div>
         </section>
         <div class="container mt-5">
-        <label for="department" class="form-label">General Task</label>
-        <select id="department2" name="department2" class="form-select">
-            <option value="">-- General Task --</option>
-            <option value="One Time Task">One Time Task</option>
-            <option value="Recurrent Task">Recurrent Task</option>
-        </select>
-    </div>
-
-    <!-- One Time Task Form -->
-    <div class="container mt-4"  id="one-time-task-form" style="display: none;">
-        <h5>One Time Task Form</h5>
-        <form action="{{ route('general.store') }}" method="POST">
-            @csrf 
-        
-            <!-- First Row: Department & User -->
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="department" class="form-label">Select Department</label>
+        <label for="department" class="form-label">Select Department</label>
                     <select id="department" name="department" class="form-select">
                         <option value="">-- Select a Department --</option>
                         @foreach($department as $dep) -->
                         <option value="{{ $dep->id }}">{{ $dep->get_Department }}</option>
                         <!-- <!-- @endforeach -->
                     </select>
-                </div>     
-                <div class="col-md-6">
                     <label for="users" class="form-label">Select User</label>
                     <select id="users" name="user" class="form-select">
                         <option value="">-- Select a User --</option>
                     </select>
-                </div>
+                    <label for="department" class="form-label">General Task</label>
+                    <select id="department2" name="department2" class="form-select">
+                        <option value="">-- General Task --</option>
+                        <option value="One Time Task">One Time Task</option>
+                        <option value="Recurrent Task">Recurrent Task</option>
+                    </select>
+    </div>
+  
+
+    <!-- One Time Task Form -->
+    <div class="container mt-4" id="one-time-task-form" style="display: none;">
+    <h5>One Time Task Form</h5>
+    <form action="{{ route('general.store') }}" method="POST">
+        @csrf 
+
+        <!-- Second Row: Task Name & Priority -->
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="task_name" class="form-label">Task Name</label>
+                <input type="text" name="task_name" id="task_name" class="form-control">
             </div>
-        
-            <!-- Second Row: Task Name & Task Details -->
+            <div class="col-md-6">
+                <label for="priority" class="form-label">Priority</label>
+                <select id="priority" name="priority" class="form-select" required>
+                    <option value="">Select priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Hidden User ID -->
+        <div class="mb-3">
+            <input type="number" id="user-id" name="user_id" hidden class="form-control" required>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="start-date" class="form-label">Start Date</label>
+                <input type="date" name="start_date" id="start-date" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label for="end-date" class="form-label">End Date</label>
+                <input type="date" name="end_date" id="end-date" class="form-control">
+            </div>
+        </div>
+
+        <!-- Job Description & Allocated By -->
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <label for="task-details" class="form-label">Job Description</label>
+                <textarea id="task-details" name="task_details" class="form-control" rows="4" placeholder="Enter task details" required></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="allocated-by" class="form-label">Allocated By</label>
+                <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
+            </div>
+        </div>
+
+        <div class="hideClass2" style="display:none">
             <div class="row mt-3">
-                <div class="col-md-6">
-                    <label for="task_name" class="form-label">Task Name</label>
-                    <input type="text" name="task_name" id="task_name" class="form-control">
-                </div>
-                <div class="col-6">
-                    <label for="priority" class="form-label">Priority</label>
-                    <select id="priority" name="priority" class="form-select" required>
-                        <option value="">Select priority</option>
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
+                <div class="col-md-12">
+                    <label for="time-range" class="form-label">Time Range</label>
+                    <select id="time-range" name="time_range" class="form-select" required>
+                        <option value="">Select Time Range</option>
+                        <option value="Day">Day</option>
+                        <option value="Week">Week</option>
+                        <option value="Month">Month</option>
+                        <option value="Year">Year</option>
                     </select>
                 </div>
             </div>
+        </div>
 
+        <!-- Time Selection -->
+        <div class="hideClass1" style="display:none;"> 
             <div class="row mt-3">
                 <div class="col-md-6">
-                    <label for="task_details" class="form-label">Start Date</label>
-                    <input type="date" name="start_date" id="start-date"  class="form-control">
-                </div>
-                <div class="col-md-6">
-                    <label for="task_details" class="form-label">End Date</label>
-                    <input type="date" name="end_date" id="end-date"  class="form-control">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6">
-                    <label for="task-name" class="form-label"  style="position: relative; left: 10px;">Job Description</label>
-                    <textarea id="task-name" name="task_name" class="form-control" rows="4" placeholder="Enter task details" required></textarea>
-                </div>
-                <div class="col-6">
-                    <label for="allocated-by" class="form-label" style="position: relative; left: 10px;">Allocated By</label>
-                    <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
-                </div>
-            </div>
-
-            <div class="row" style="width: 700px;">
-                <div class="col-6">
-                    <label for="start-time" class="form-label fw-bold" >Start Time:</label>
+                    <label for="start-time" class="form-label fw-bold">Start Time:</label>
                     <div class="d-flex">
-                        <input type="number" id="start-hour" name="start-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
-                        <input type="number" id="start-minute" name="start-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
-                        <select id="start-period" name="start-period" class="form-select w-auto" required>
+                        <input type="number" id="start-hour" name="start_hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
+                        <input type="number" id="start-minute" name="start_minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
+                        <select id="start-period" name="start_period" class="form-select w-auto" required>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
                     </div>
                 </div>
-
-                <div class="col-6">
-                    <label for="end-time" class="form-label fw-bold" >End Time:</label>
-                    <div class="d-flex" >
-                        <input type="number" id="end-hour" name="end-hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
-                        <input type="number" id="end-minute" name="end-minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
-                        <select id="end-period" name="end-period" class="form-select w-auto" required>
+                <div class="col-md-6">
+                    <label for="end-time" class="form-label fw-bold">End Time:</label>
+                    <div class="d-flex">
+                        <input type="number" id="end-hour" name="end_hour" min="1" max="12" placeholder="HH" class="form-control w-25 me-2" required>
+                        <input type="number" id="end-minute" name="end_minute" min="0" max="59" placeholder="MM" class="form-control w-25 me-2" required>
+                        <select id="end-period" name="end_period" class="form-select w-auto" required>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
                     </div>               
                 </div>
-
-                <div class="row mt-3">
-                
-                    <div class="col-8">
-                        <label class="fw-bold mb-0 me-2">Enter Hour</label>
-                        <input type="number" ame="enter_hour" id="enter-hour" class="form-control" placeholder="Enter Hour">
-                    </div>
-                    <div class="col-6">
-                        <p class="fw-bold mb-0 me-2">Duration Hour:</p>
-                        <input type="number" id="duration-hour" value="hh" name="getHour" readonly class="form-control w-25" placeholder="hours">
-                    </div>
+            </div>
+            
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label class="fw-bold mb-0 me-2">Enter Hour</label>
+                    <input type="number" name="enter_hour" id="enter-hour" class="form-control" placeholder="Enter Hour">
                 </div>
-                
-                <div class="row" style="padding-top: 13px;">
-                <div class="col-3">
-                        <button class="btn btn-success">Submit</button>
-                    </div>
-                    <div class="col-3" style="margin-left: -40px;" >
-                        <button class="btn btn-danger">Cancel</button>
-                    </div>
+                <div class="col-md-6">
+                    <label class="fw-bold mb-0 me-2">Duration Hour:</label>
+                    <input type="number" id="duration-hour" value="hh" name="getHour" readonly class="form-control" placeholder="hours">
                 </div>
             </div>
-        </form>
+        </div>
 
-    </div>
+        <!-- Buttons -->
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-danger">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
 
 
     <!-- Recurrent Task Form -->
 
-    <div class="container mt-4" id="recurrent-task-form" style="display:none">
+    <div class="container mt-4" id="recurrent-task-form" style="display: none;">
         <h5>Recurrent  Task Form</h5>
         <form action="{{ route('general.store') }}" method="POST">
             @csrf 
-            
-            <!-- First Row: Department & User -->
-            <div class="row">
-                <div class="col-md-6">
-                    <label for="department" class="form-label">Select Department</label>
-                    <select id="department" name="department" class="form-select">
-                        <option value="">-- Select a Department --</option>
-                        @foreach($department as $dep) -->
-                        <option value="{{ $dep->id }}">{{ $dep->get_Department }}</option>
-                        <!-- <!-- @endforeach -->
-                    </select>
-                </div>     
-                <div class="col-md-6">
-                    <label for="users" class="form-label">Select User</label>
-                    <select id="users" name="user" class="form-select">
-                        <option value="">-- Select a User --</option>
-                    </select>
-                </div>
-            </div>
-            
-            <!-- Second Row: Task Name & Task Details -->
+           
             <div class="row mt-3">
                 <div class="col-md-6">
                     <label for="task_name" class="form-label">Task Name</label>
@@ -201,11 +200,13 @@
                     <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
                 </div>
             </div>
-
+            <div class="mb-3">
+                            <input type="number" id="user-id" name="user_id" hidden class="form-control" value="" required>
+                        </div>
             <div class="row">
                 <div class="col-6">
             <label for="priority" class="form-label">Time Range</label>
-                    <select id="priority" name="time-range" class="form-select" required>
+                    <select id="priority" name="priority" class="form-select" required>
                         <option value="">Time Range</option>
                         <option value="Day">Day</option>
                         <option value="Week">Week</option>
@@ -213,25 +214,23 @@
                         <option value="Year">Year</option>
                     </select>
                     </div>
-                    <div class="col-6">
-                   <input type="text" id="allocated-by" name="genearl-task-type" class="form-control" hidden value="recurrent-task" placeholder="Enter allocator's name" required disabled>
+                     <div class="col-6">
+                    <label for="allocated-by" class="form-label" style="position: relative; left: 10px;">Allocated By</label>
+                    <input type="text" id="allocated-by" name="allocated_by" class="form-control" value="{{ Auth::user()->name }}" placeholder="Enter allocator's name" required disabled>
                 </div>
                 </div>
-
-               
-                
                 <div class="row" style="padding-top: 13px;">
                 <div class="col-3">
                         <button class="btn btn-success">Submit</button>
                     </div>
-                    <div class="col-3"  >
+                    <div class="col-3" style="margin-left: -40px;" >
                         <button class="btn btn-danger">Cancel</button></div>
                     </div>
                 </div>
             </div>
         </form>
 
-    </div>
+    </div> 
 
     <div class="container mt-5">
         <form id="filter-form" class="mb-4">
@@ -295,7 +294,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <input type="number" id="user-id" name="user_id" hidden class="form-control" value="" required>
+                            <input type="number" id="user-id1" name="user_id" hidden class="form-control" value="" required>
                         </div>
 
                         <div class="row">
@@ -429,7 +428,7 @@
                     }
 
                     // Set the selected user's ID to the hidden input field
-                    $('#user-id').val(userId);
+                    $('#user-id1').val(userId);
 
                     $.ajax({
                         url: "{{ route('user.details') }}",
@@ -519,7 +518,7 @@
                     const taskName = $('#task_name').val();
                     const taskStatus = $('#task_status').val();
 
-                    const userId = $('#user-id').val();
+                    const userId = $('#user-id1').val();
                     if (!userId) {
                         alert('No user selected. Please select a user.');
                         return;
@@ -711,22 +710,35 @@
                     }
         </script>
     <script>
-        document.getElementById("department2").addEventListener("change", function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    var departmentSelect = document.getElementById("department2");
+    
+    if (departmentSelect) {
+        departmentSelect.addEventListener("change", function() {
             var oneTimeForm = document.getElementById("one-time-task-form");
-            var recurrentForm = document.getElementById("recurrent-task-form");
-            
+            var oneTimeFields = document.querySelector(".hideClass1"); // One Time Task fields
+            var recurrentForm = document.querySelector(".hideClass2"); // Recurrent Task fields
 
             if (this.value === "One Time Task") {
-                oneTimeForm.style.display = "block";
-                recurrentForm.style.display = "none";
+                if (oneTimeForm) oneTimeForm.style.display = "block"; // Show One Time Task form
+                if (oneTimeFields) oneTimeFields.style.display = "block"; // Show additional One Time fields
+                if (recurrentForm) recurrentForm.style.display = "none"; // Hide Recurrent Task fields
             } else if (this.value === "Recurrent Task") {
-                oneTimeForm.style.display = "none";
-                recurrentForm.style.display = "block";
+                if (oneTimeForm) oneTimeForm.style.display = "block"; // Hide One Time Task form
+                if (oneTimeFields) oneTimeFields.style.display = "none"; // Hide additional One Time fields
+                if (recurrentForm) recurrentForm.style.display = "block"; // Show Recurrent Task fields
             } else {
-                oneTimeForm.style.display = "none";
-                // recurrentForm.style.display = "none";
+                if (oneTimeForm) oneTimeForm.style.display = "none";
+                if (oneTimeFields) oneTimeFields.style.display = "none";
+                if (recurrentForm) recurrentForm.style.display = "none";
             }
         });
+    } else {
+        console.error("Element with id 'department2' not found!");
+    }
+});
+;
+
 
     </script>
 
