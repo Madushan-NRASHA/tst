@@ -105,7 +105,7 @@
                 <a href="{{ route('selfUpdate', ['id' => auth()->user()->id]) }}" class="nav-link @if(request()->routeIs('selfUpdate')) active @endif">
 
                 <i class="fa-solid fa-user-gear"></i>
-                        <p>User Settings</p>
+                        <p>Profile Settings</p>
                     </a>
                 </li>
                 <hr>

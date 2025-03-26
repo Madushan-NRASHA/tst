@@ -17,12 +17,10 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <div class="col-sm-12">
-                                            <h1 class="text-primary font-weight-bold text-center text-md-left">Edit User</h1>
-                                        </div>
+                            <h1 class="text-primary font-weight-bold text-md-left">My Profile Setting</h1>
+                        </div>
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.viewUser') }}">User Details</a></li>
-                            <li class="breadcrumb-item active">Edit</li>
+                            <li class="breadcrumb-item active">Edit My Profile</li>
                         </ol>
                     </div>
                 </div>
@@ -32,7 +30,7 @@
         <!-- Main content -->
        <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Edit User Details</h3>
+                <h3 class="card-title">Edit Details</h3>
             </div>
             <div class="card-body">
                 <form class="form-horizontal" method="POST" action="{{ route('by.user', $user->id) }}">
@@ -66,7 +64,7 @@
                             @endif
                         </div>
                         <div class="col-6">
-                            <label for="SelectDepartment" class="form-label">{{ __('USER Role') }}</label>
+                            <label for="SelectDepartment" class="form-label">{{ __('User Role') }}</label>
                             <input id="Emp_id" type="text" name="Emp_id" class="form-control" value="{{ $user->userType}}" readonly required autofocus autocomplete="off">
                         </div>
                         <!-- <div class="col-6">
@@ -84,7 +82,7 @@
                     <div class="row">
                         <div class="col-6">
                             <label for="password" class="form-label">{{ __('Password') }}</label>
-                            <input id="password" type="password" value="{{$user->password}}" name="password" class="form-control" autocomplete="new-password">
+                            <input id="password" type="password" value="" name="password" class="form-control" autocomplete="new-password">
                             @if($errors->has('password'))
                                 <div class="text-danger mt-1">{{ $errors->first('password') }}</div>
                             @endif
@@ -93,7 +91,7 @@
                         <!-- Confirm Password -->
                         <div class="col-6">
                             <label for="password_confirmation" class="form-label">{{ __('Confirm Password') }}</label>
-                            <input id="password_confirmation" type="password" value="{{$user->password}}"  name="password_confirmation" class="form-control" autocomplete="new-password">
+                            <input id="password_confirmation" type="password" value=""  name="password_confirmation" class="form-control" autocomplete="new-password">
                             @if($errors->has('password_confirmation'))
                                 <div class="text-danger mt-1">{{ $errors->first('password_confirmation') }}</div>
                             @endif
