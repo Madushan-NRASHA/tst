@@ -10,8 +10,8 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <div class="col-sm-12">
-                                            <h1 class="text-primary font-weight-bold text-center text-md-left">User Details</h1>
-                                        </div>
+                            <h1 class="text-primary font-weight-bold text-md-left">User Details</h1>
+                        </div>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.viewUser') }}">User Details</a></li>
                             <li class="breadcrumb-item active">View</li>
