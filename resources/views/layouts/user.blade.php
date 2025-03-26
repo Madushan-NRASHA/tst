@@ -63,7 +63,13 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
+    @if (Auth::user()->userType == 'Coordinator')
+    @yield('sidebar', view('components.sidebar2'))
+    @endif
+    @if (Auth::user()->userType == 'User')
     @yield('sidebar', view('components.sidebar3'))
+    @endif
+    
 
     <!-- Content Wrapper. Contains page content -->
     @yield('content')

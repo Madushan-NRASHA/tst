@@ -24,7 +24,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="task-site" class="form-label">Company Name</label>
-                                <input type="text" id="task-site" name="task_site" value="{{$task->task_site}}" class="form-control" placeholder="Enter task site">
+                                <input type="text" id="task-site" name="task_site" value="{{$task->task_site}}" class="form-control" placeholder="Enter task site" required>
                             </div>
                             <div class="col-6">
                                 <label for="priority" class="form-label">Priority</label>
@@ -68,10 +68,10 @@
                                     <div>
                                         <label for="start-hour">Start Time:</label>
                                         <div class="d-flex gap-2">
-                                            <input type="number" id="start-hour" name="start-hour" min="1" max="12" value="{{ $hour }}" class="form-control" style="width: 70px;">
+                                            <input type="number" id="start-hour" name="start-hour" min="1" max="12" value="{{ $hour }}" class="form-control" style="width: 70px;" required>
                                             <span>:</span>
-                                            <input type="number" id="start-minute" name="start-minute" min="0" max="59" value="{{ $minute }}" class="form-control" style="width: 70px;">
-                                            <select id="start_period" name="start_period" class="form-select">
+                                            <input type="number" id="start-minute" name="start-minute" min="0" max="59" value="{{ $minute }}" class="form-control" style="width: 70px;" required>
+                                            <select id="start_period" name="start_period" class="form-select" required>
                                                 <option value="AM" {{ old('start_period', $period) == 'AM' ? 'selected' : '' }}>AM</option>
                                                 <option value="PM" {{ old('start_period', $period) == 'PM' ? 'selected' : '' }}>PM</option>
                                             </select>
@@ -81,10 +81,10 @@
                                     <div>
                                         <label for="end-hour">End Time:</label>
                                         <div class="d-flex gap-2">
-                                            <input type="number" id="end-hour" name="end-hour" min="1" max="12" value="{{ $end_hour }}" class="form-control" style="width: 70px;">
+                                            <input type="number" id="end-hour" name="end-hour" min="1" max="12" value="{{ $end_hour }}" class="form-control" style="width: 70px;" required>
                                             <span>:</span>
-                                            <input type="number" id="end-minute" name="end-minute" min="0" max="59" value="{{ $end_minute }}" class="form-control" style="width: 70px;">
-                                            <select id="end_period" name="end_period" class="form-select">
+                                            <input type="number" id="end-minute" name="end-minute" min="0" max="59" value="{{ $end_minute }}" class="form-control" style="width: 70px;" required>
+                                            <select id="end_period" name="end_period" class="form-select" required>
                                                 <option value="AM" {{ old('end_period', $end_period) == 'AM' ? 'selected' : '' }}>AM</option>
                                                 <option value="PM" {{ old('end_period', $end_period) == 'PM' ? 'selected' : '' }}>PM</option>
                                             </select>

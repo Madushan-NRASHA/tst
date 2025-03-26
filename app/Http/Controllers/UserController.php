@@ -188,6 +188,7 @@ public function userUpdate(Request $request,$id){
     // Default values in case start_time is null
     $user = User::with('department')->findOrFail($id);
         $departments=Department::all();
+        
         return view('userUpdate', compact('user','departments'));
 }
 public function userEditFunc(Request $request, $id)
@@ -237,6 +238,10 @@ public function userEditFunc(Request $request, $id)
         'activity' => 'Updated User Details',
         'details' => 'User Name: ' . $user->name,
     ]);
+
+    if(Auth::user()->userType=='Coordinator'){
+        return redirect()->route('Coordinator.DashBoard')->with('success', 'Profile updated successfully.');
+    }
 
     // Redirect to dashboard with success message
     return redirect()->route('dashboard')->with('success', 'User updated successfully.');
