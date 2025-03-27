@@ -63,6 +63,8 @@
 
                 <!-- Hidden User ID -->
                 <input type="hidden" id="user-id" name="user_id">
+                <input type="hidden" id="general_task_type" name="general_task_type">
+                
 
 
                 <!-- Date Selection -->
@@ -788,14 +790,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
         </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+ document.addEventListener("DOMContentLoaded", function() {
     var departmentSelect = document.getElementById("department2");
+    var taskTypeInput = document.getElementById("task_type");
+    var generalTaskTypeInput = document.getElementById("general_task_type");
     
     if (departmentSelect) {
         departmentSelect.addEventListener("change", function() {
             var oneTimeForm = document.getElementById("one-time-task-form");
             var oneTimeFields = document.querySelector(".hideClass1"); // One Time Task fields
             var recurrentForm = document.querySelector(".hideClass2"); // Recurrent Task fields
+
+            // Update hidden input fields with selected value
+            if (taskTypeInput) {
+                taskTypeInput.value = this.value;
+            }
+            if (generalTaskTypeInput) {
+                generalTaskTypeInput.value = this.value;
+            }
 
             if (this.value === "One Time Task") {
                 if (oneTimeForm) oneTimeForm.style.display = "block"; // Show One Time Task form
@@ -815,7 +827,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Element with id 'department2' not found!");
     }
 });
-;
 </script>
 <script>
     $(document).ready(function () {
