@@ -130,11 +130,11 @@ class AdminController extends Controller
     }
 
     public  function assignTask(){
-//        $users = User::with('department')->get();
+        //     
         $department=Department::with('task')->get();
+        $users = User::with('tasks')->get();
 
-
-        return view('assignTask',compact('department'));
+        return view('assignTask',compact('department','users'));
     }
 
     public function userUpdate(Request $request,$id){
@@ -661,7 +661,9 @@ public function UpdateTask(Request $request, $id)
             ], 500);
         }
     }
+
     public function oneTaskstore(Request $request){
+        // return $request;
         // $request->validate([
         //     'department' => 'required|exists:departments,id',  // Ensure the department exists
         //     'user' => 'required|exists:users,id',  // Ensure the user exists
@@ -683,22 +685,22 @@ public function UpdateTask(Request $request, $id)
 
         // Calculate duration based on start and end times
         $startTime = sprintf('%02d:%02d %s',
-        $request->input('start-hour'),
-        $request->input('start-minute'),
-        $request->input('start-period')
-    );
+        $request->input('start_hour'),
+        $request->input('start_minute'),
+        $request->input('start_period')
+        );
 
-    $endTime = sprintf('%02d:%02d %s',
-        $request->input('end-hour'),
-        $request->input('end-minute'),
-        $request->input('end-period')
-    );
+        $endTime = sprintf('%02d:%02d %s',
+            $request->input('end_hour'),
+            $request->input('end_minute'),
+            $request->input('end_period')
+        );
 
 
         // Store the task in the database
         GeneralTask::create([
             'department_id' => $request->department,
-            'user_id' => $request->user,
+            'user_id' => $request->user_id,
             'task_name' => $request->task_name,
             'priority' => $request->priority,
             'start_date' => $request->start_date,
@@ -709,11 +711,14 @@ public function UpdateTask(Request $request, $id)
             'end_time' => $endTime,
             'duration_hour' =>$request->input('getHour'),
             'enter_hour' => $request->enter_hour,
+            'time_range' => $request->input('time_range'), // Fixed key
+            'general_task_type' => $request->input('general_task_type'), // Fixed typo
         ]);
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Task created successfully!');
     }
+    
     }
     
 

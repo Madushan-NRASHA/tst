@@ -28,7 +28,9 @@ class GeneralTask extends Model
         'start_time',
         'end_time',
         'allocated_by',
-        'department_id'
+        'department_id',
+        'time_range',
+        'general_task_type'
     ];
 
     // Define the relationship between GeneralTask and User
