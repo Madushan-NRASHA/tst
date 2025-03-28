@@ -130,7 +130,7 @@ class AdminController extends Controller
     }
 
     public  function assignTask(){
-        //     
+
         $department=Department::with('task')->get();
         $users = User::with('tasks')->get();
 
@@ -688,6 +688,7 @@ public function UpdateTask(Request $request, $id)
         $request->input('start_hour'),
         $request->input('start_minute'),
         $request->input('start_period')
+
         );
 
         $endTime = sprintf('%02d:%02d %s',
