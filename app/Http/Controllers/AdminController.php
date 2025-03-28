@@ -130,7 +130,7 @@ class AdminController extends Controller
     }
 
     public  function assignTask(){
-//     
+
         $department=Department::with('task')->get();
         $users = User::with('tasks')->get();
 
@@ -661,6 +661,7 @@ public function UpdateTask(Request $request, $id)
             ], 500);
         }
     }
+
     public function oneTaskstore(Request $request){
         // return $request;
         // $request->validate([
@@ -687,13 +688,14 @@ public function UpdateTask(Request $request, $id)
         $request->input('start_hour'),
         $request->input('start_minute'),
         $request->input('start_period')
-    );
 
-    $endTime = sprintf('%02d:%02d %s',
-        $request->input('end_hour'),
-        $request->input('end_minute'),
-        $request->input('end_period')
-    );
+        );
+
+        $endTime = sprintf('%02d:%02d %s',
+            $request->input('end_hour'),
+            $request->input('end_minute'),
+            $request->input('end_period')
+        );
 
 
         // Store the task in the database
@@ -717,6 +719,7 @@ public function UpdateTask(Request $request, $id)
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Task created successfully!');
     }
+    
     }
     
 

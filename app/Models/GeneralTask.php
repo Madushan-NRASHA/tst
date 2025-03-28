@@ -29,7 +29,7 @@ class GeneralTask extends Model
         'end_time',
         'allocated_by',
         'department_id',
-        'time-range',
+        'time_range',
         'general_task_type'
     ];
 
