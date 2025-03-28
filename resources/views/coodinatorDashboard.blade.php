@@ -129,6 +129,80 @@
         </div>
     </section>
     <div class="Today-Task">
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Task Table</h3>
+                            </div>
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Task Name</th>
+                                            <th>Start Date</th>
+                                            <th>Task Type</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($generalTask as $GeneralTask)
+                                    <tr>
+                                    <td>{{ $GeneralTask->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $GeneralTask->task_name }}</td>
+                                    <td>{{ $GeneralTask->general_task_type }}</td>
+                                    <td>{{ $GeneralTask->start_date}}</td>
+                                    <td>{{ $GeneralTask->end_date}}</td>
+                                    <td>
+                                                    @if($GeneralTask->status === 'Done')
+                                                        <button class="btn btn-success" disabled>
+                                                            <i class="fa-solid fa-check me-2"></i> Task Completed
+                                                        </button>
+                                                    @elseif($GeneralTask->status === 'pending')
+                                                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $GeneralTask->id }}, {{ $GeneralTask->user_id }})">
+                                                            Not Done
+                                                        </button>
+                                                    @else
+                                                        <button class="btn btn-warning" disabled>
+                                                            <i class="fa-solid fa-clock me-2"></i> Task Pending
+                                                        </button>
+                                                    @endif
+                                                </td>
+                                        
+                                    </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="6">No tasks found</td>
+                                        </tr>
+                                    @endforelse
+                                    <tfoot>
+                                        <tr>
+                                        <th>Name</th>
+                                            <th>Task Name</th>
+                                            <th>Start Date</th>
+                                            <th>Task Type</th>
+                                            <th>End Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+        
+                                <!-- Pagination Controls -->
+                                <div class="d-flex justify-content-center">
+                                {{ $todayAllTasks->links('pagination::bootstrap-4') }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">

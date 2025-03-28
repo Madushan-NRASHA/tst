@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\GeneralTask;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ExpiringTaskMail;
 use Illuminate\Support\Facades\Log;
@@ -174,13 +175,19 @@ class TaskController extends Controller
         ->orderBy('updated_at', 'desc')
         ->get();
 
+        $generalTask = GeneralTask::whereIn('status', ['pending', 'Done'])
+        ->whereDate('end_date', '<=', $today) // Include today's tasks
+        ->orderBy('end_date', 'desc')
+        ->paginate(10);
+
     return view('adminDashboard', compact(
         'departments',
         'todayTasks',
         'pendingTasks',
         'completedTasks',
         'todayAllTasks',
-        'now'
+        'now',
+        'generalTask'
     ));
 }
 
@@ -284,6 +291,11 @@ public function filterTasks(Request $request)
             ->orderBy('updated_at', 'desc')
             ->get();
 
+            $generalTask = GeneralTask::whereIn('status', ['pending', 'Done'])
+        ->whereDate('end_date', '<=', $today) // Include today's tasks
+        ->orderBy('end_date', 'desc')
+        ->paginate(10);
+
         // Pass all variables to the view including departments
         return view('coodinatorDashboard', compact(
             'departments',
@@ -291,7 +303,8 @@ public function filterTasks(Request $request)
             'todayAllTasks',
             'pendingTasks',
             'completedTasks',
-            'now'
+            'now',
+            'generalTask'
         ));
     }
     public function filterCoordinatorTasks(Request $request)
