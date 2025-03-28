@@ -48,7 +48,7 @@ private function redirectUserBasedOnRole($user)
     return match ($user->userType) {
         'admin' => redirect()->intended(route('adminView.Dashboard')),
         'General Manager' => redirect()->intended(route('adminView.Dashboard')),
-        'Coordinator' => redirect()->intended(route('editor.dashboard')),
+        'Coordinator' => redirect()->intended(route('Coordinator.DashBoard')),
         default => redirect()->intended(route('user.dashboard')),
     };
 }
