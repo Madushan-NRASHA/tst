@@ -221,9 +221,7 @@ class AdminController extends Controller
 
 
  public function taskStore(Request $request)
-    {
-
-        
+    {        
         // Validate request
         $request->validate([
             'user_id' => 'required|exists:users,id',

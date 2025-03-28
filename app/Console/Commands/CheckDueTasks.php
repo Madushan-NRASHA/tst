@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\GeneralTask;
 use Carbon\Carbon;
+use App\Models\GeneralTask;
+use Illuminate\Console\Command;
 
 class CheckDueTasks extends Command
 {
@@ -26,8 +26,6 @@ class CheckDueTasks extends Command
         foreach ($dueTasks as $task) {
             // Replicate the task. This copies all attributes except the primary key.
             $newTask = $task->replicate();
-
-            
 
             // Update dates based on the repetition type
             switch ($task->time_range) {

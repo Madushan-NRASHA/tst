@@ -49,7 +49,9 @@ class CoordinatorController extends Controller
 
     public function CoodinatorJob(){
         $department=Department::with('task')->get();
-        return view('CoodinatorJob',compact('department'));
+        $users = User::with('tasks')->get();
+
+        return view('CoodinatorJob',compact('department','users'));
     }
     public function CoordinatorView($id){
 //        $department = Department::findOrFail($id);
